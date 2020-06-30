@@ -15,6 +15,7 @@ pipeline {
                             sh "echo '${password}' | sudo -S docker container rm mz"
                         } catch (Exception e) {
                             print 'container not exist, skip clean'
+                            currentBuild.result = 'FAILURE'
                             
                         }
                     }
@@ -42,7 +43,7 @@ pipeline {
 
                         sh "echo '${password}' | sudo -S docker build ${WORKSPACE}/auto -t mz_nginx"
                         sh "echo '${password}' | sudo -S docker run -d -p 8118:80 --name mz -v /home/adminci/study_ansible/Zaiceva:/result mz_nginx"
-                        currentBuild.result = 'FAILURE'
+                        
                     }
                 }
             }
