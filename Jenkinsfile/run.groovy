@@ -46,19 +46,6 @@ pipeline {
             }
         }
         
-        stage ('Stop'){
-            steps{
-                script{
-                    withCredentials([
-                        usernamePassword(credentialsId: 'srv_sudo',
-                        usernameVariable: 'username',
-                        passwordVariable: 'password')
-                    ]) {
-                            sh "echo '${password}' | sudo -S docker stop mz"
-                    }
-                }
-            }
-        
         stage ('Write result in the file'){
             steps{
                 script{
